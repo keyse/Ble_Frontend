@@ -1,0 +1,55 @@
+<template>
+
+  <section show.bind="!isComplete">
+
+    <form class="pure-form pure-form-stacked">
+
+      <compose view-model="${activeStep.path}"></compose>
+
+      <div>
+        <button click.trigger="previousStep()" disabled.bind="isFirstPage">Previous</button>
+        <button click.trigger="nextStep()" disabled.bind="isLastPage">Next</button>
+        <br><br>
+        <button click.trigger="finish()" show.bind="isLastPage">Submit</button>
+      </div>
+
+    </form>
+
+  </section>
+
+  <section show.bind="isComplete">
+
+    <h2 class="sub-heading">Form contents</h2>
+
+    <ul>
+      <li>
+        <strong>Name:</strong> ${wizard.person.fullname}
+      </li>
+
+      <li>
+        <strong>Address:</strong> ${wizard.address.formatted}
+      </li>
+
+      <li>
+        <strong>Favourite class of vertebrate:</strong> ${wizard.person.favouriteVertebrateClass.type}
+      </li>
+
+      <li>
+        <strong>Favourite type of ${wizard.person.favouriteVertebrateClass.label}:</strong>
+        ${wizard.person.favouriteVertebrateType}
+      </li>
+
+      <li>
+        <strong>Agreed to terms and conditions:</strong> ${wizard.person.agreeToTerms}
+      </li>
+
+      <li>
+        <strong>Agreed to sell kidney:</strong> ${wizard.person.agreeToSellKidney}
+      </li>
+    </ul>
+
+    <button click.trigger="restart()">Start again</button>
+
+  </section>
+
+</template>

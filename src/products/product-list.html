@@ -1,0 +1,48 @@
+<template>
+  <ol class="breadcrumb">
+    <li><a href="#">Live Demo</a></li>
+    <li class="active">Local</li>
+  </ol>
+
+  <div class="page-header">
+    <h1>
+      Aurelia-Datagrid
+      <small>Local Data</small>
+    </h1>
+  </div>
+
+  <grid css-framework="bootstrap" data-source.bind="samples" row-selected.bind="rowSelected" view-model.ref="grid">
+    <template replace-part="grid-template">
+      <grid-column property="name" filterable sortable></grid-column>
+      <grid-column property="title" alignment="center" filterable sortable></grid-column>
+      <grid-column property="options.location" filterable sortable></grid-column>
+      <grid-column-checkbox property="active" filterable sortable></grid-column-checkbox>
+      <grid-column-button heading="Action" caption="Select" button-click.call="select(row.id)"></grid-column-button>
+      
+      <grid-column-template heading="Custom">
+        <template replace-part="custom-template">
+          <div class="input-group">
+            <span class="input-group-addon">
+              <input type="radio" aria-label="...">
+              <input type="radio" aria-label="...">
+            </span>
+            <input type="text" class="form-control" aria-label="...">
+          </div>
+        </template>
+      </grid-column-template>
+      
+      <grid-column-edit
+        edit-click.call="editItem($event, row)"
+        save-click.call="saveItem($event, row)"
+        cancel-click.call="cancelItem($event, row)">
+      </grid-column-edit>
+    </template>
+   
+    <template replace-part="grid-footer-template">
+      <div>Total items: ${samples.length}</div>
+      <pagination></pagination>
+    </template>
+  </grid>
+  
+  <button type="button" click.delegate="deleteFirst()">Delete 1st</button>
+</template>
